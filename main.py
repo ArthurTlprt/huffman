@@ -1,3 +1,5 @@
+# coding: utf-8
+
 ##
 #   Affiche les feuilles de l'arbre : la lettre et son code associé
 def dispCode(node):
@@ -30,6 +32,7 @@ def main():
     text = raw_input()
     oc = []
 
+    setList(text, oc)
     # Crée l'arbre, associe les neouds de poids les plus faibles ensemble
     while len(oc) != 1:
         m_node = {"bin" : None, "count" : None, "left": None, "right": None}
