@@ -1,5 +1,9 @@
-def dispCode():
-    
+def dispCode(node):
+    if "right" not in node:
+        print "letter: " + node["letter"] + " = " + node["bin"]
+    else:
+        dispCode(node["right"])
+        dispCode(node["left"])
 
 def encode(node, code):
     node["bin"] = code
@@ -31,7 +35,7 @@ def main():
     root = oc.pop()
     encode(root["left"], "0")
     encode(root["right"], "1")
-    print root
+    dispCode(root)
 
 
 if __name__ == "__main__":
