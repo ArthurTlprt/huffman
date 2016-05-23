@@ -1,3 +1,5 @@
+##
+#   Affiche les feuilles de l'arbre : la lettre et son code associé
 def dispCode(node):
     if "right" not in node:
         print "letter: " + node["letter"] + " = " + node["bin"]
@@ -5,6 +7,8 @@ def dispCode(node):
         dispCode(node["right"])
         dispCode(node["left"])
 
+##
+#   Code les lettres
 def encode(node, code):
     node["bin"] = code
     if "left" in node:
@@ -13,16 +17,20 @@ def encode(node, code):
         encode(node["right"], code + "1")
     return
 
-
-def main():
-    text = raw_input()
-    oc = []
+##
+#   Crée une liste d'objet trié en fonction du nombre d'occurence des lettres de noeuds fils
+def setList(text, oc):
     for l in text:
         if {"letter": l, "count": text.count(l), "bin" : None} not in oc:
             oc.append({"letter": l, "count": text.count(l), "bin" : None})
     oc = sorted(oc, key=lambda k: k['count'])
     oc.reverse()
 
+def main():
+    text = raw_input()
+    oc = []
+
+    # Crée l'arbre, associe les neouds de poids les plus faibles ensemble
     while len(oc) != 1:
         m_node = {"bin" : None, "count" : None, "left": None, "right": None}
         m_node["left"] = oc.pop()
