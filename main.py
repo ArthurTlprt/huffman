@@ -1,6 +1,23 @@
 # coding: utf-8
+import sys
+sys.stdout.write('.')
 
-##
+# Affiche le code codé
+def dispWord(text, tab):
+    for l in text:
+        i = next(index for (index, d) in enumerate(tab) if d["letter"] == l)
+        sys.stdout.write( tab[i]["bin"] )
+    print ""
+
+# Renvoie la table de traduction : chaque lettre associée à son code binaire
+def getTab(node, tab):
+    if "right" not in node:
+        tab.append({"letter": node["letter"], "bin": node["bin"]})
+    else:
+        getTab(node["right"], tab)
+        getTab(node["left"], tab)
+
+
 #   Affiche les feuilles de l'arbre : la lettre et son code associé
 def dispCode(node):
     if "right" not in node:
@@ -19,7 +36,7 @@ def encode(node, code):
         encode(node["right"], code + "1")
     return
 
-##
+
 #   Crée une liste d'objet trié en fonction du nombre d'occurence des lettres de noeuds fils
 def setList(text, oc):
     for l in text:
@@ -29,6 +46,7 @@ def setList(text, oc):
     oc.reverse()
 
 def main():
+    print "Rentrer le text à compresser:"
     text = raw_input()
     oc = []
 
@@ -46,8 +64,11 @@ def main():
     root = oc.pop()
     encode(root["left"], "0")
     encode(root["right"], "1")
-    dispCode(root)
-
+    #dispCode(root)
+    tab = []
+    getTab(root, tab)
+    print tab
+    dispWord(text, tab)
 
 if __name__ == "__main__":
     main()
